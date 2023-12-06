@@ -1,39 +1,40 @@
-# GitHub Practices
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-**Discord**: [Discord](https://discord.gg/9ryg29Gw)
+## Getting Started
 
-## Branching Strategy
-**Masterful/Mainline Branch**: Maintain the master or main branch in a deployable state, embodying stability and production readiness.
-**Feature Symphony**: Cultivate distinct branches for individual features or bug fixes, employing evocative titles to avert potential conflicts.
-**Merge conflict**: please ask github's manager project when you want merge a branch, to avoid as many worries as possible
+First, run the development server:
 
-## Syntax & layout 
-**File**: For every file's name please use camelCase style to display a common style.
-**Directory**: For every directory's name please use maj at first char.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Security and Permissions
-**Team Project**: Curtail repository access to authorized contributors. Administer permissions judiciously to accommodate your team's diverse roles.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-**Dependency Vigilance**: Periodically assess and rejuvenate dependencies, precluding potential security vulnerabilities from seeping into your project.
+You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
 
-**Note:** Please, don't use ChatGPT too much; favor [Stack Overflow](https://stackoverflow.com/)-type sites.
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
 
-## Command
-| Order | Description |
-| --- | --- |
-| git clone <repository_url> | Clone a remote repository to your machine |
-| git init | Initialize a new Git repository locally |
-| git add <file> | Add file changes/stages for next commit |
-| git commit -m "message" | Create a commit with staged changes |
-| git pull | Retrieve latest changes from remote repository |
-| git push | Push your local commits to the remote repository |
-| git branch | Show list of local branches |
-| git checkout <branch_name> | Switch to a specific branch |
-| git merge <branch_name> | Merge branch into current branch |
-| git log | Show commit history |
-| git reset <file> | Undo changes to a file (unstaged) |
-| git fetch | Retrieve information from remote branches |
-| git stash | Setting aside unfinished edits |
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-By adhering to these GitHub best practices, you'll amplify your team's synergy. Remember, these guidelines are amenable to customization to harmonize with your team's essence and your project's character. Embark with us on this wonderful project! 🚀  
-**THEO**
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
