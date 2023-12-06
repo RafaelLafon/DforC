@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 import { randomInt } from 'crypto'
+import bcrypt from 'bcrypt';
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
@@ -10,14 +11,15 @@ type Data = {
 
 const prisma = new PrismaClient()
 
-async function LoginFormHandler( req: NextApiRequest,
+export default async function SigninFormHandler( req: NextApiRequest,
   res: NextApiResponse<Data>){
   {
     var form=JSON.parse(req.body)
+    const hashedPassword = await bcrypt.hash(form.password, 10);
     const user = await prisma.user.create({
       data: {
         Email: form["email"],
-        Password: form["password"],
+        Password: hashedPassword,
         Name:"admin" ,
         Tag: "Test"+req.body.email+randomInt(10000),
         Status: 1,
@@ -28,14 +30,7 @@ async function LoginFormHandler( req: NextApiRequest,
       }
     })
     console.log(user)
+    res
   }
 }
 
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
-  console.log("fdp")
-  LoginFormHandler(req,res)
-}

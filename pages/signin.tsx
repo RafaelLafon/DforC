@@ -1,18 +1,28 @@
 import React, { useState } from "react"
-import { RedirectType, redirect } from 'next/navigation'
-
-import { json } from "stream/consumers";
 
 
-export default function LogIn() {
+export default function SignIn() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const add=()=>{
+
+  }
 
   const [formSuccess, setFormSuccess] = useState(false)
   const [formSuccessMessage, setFormSuccessMessage] = useState("")
+
+  function resetdb(){
+    fetch("/api/reset", {
+      method: "POST",
+      body: "go",
+      headers: {
+        'accept': 'application/json',
+      },
+    })
+  }
 
   const handleInput = (e) => {
     const fieldName = e.target.name;
@@ -27,12 +37,23 @@ export default function LogIn() {
   const submitForm = (e) => {
     // We don't want the page to refresh
     e.preventDefault()
-    fetch("/api/loginHandler", {
+    fetch("/api/signinHandler", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
         'accept': 'application/json',
       },
+    }).then((response) => response.json())
+    .then((data) => {
+      setFormData({
+        email: "",
+        password: "",  
+      })
+      
+   
+      // Handle response if necessary
+      // ...
+      setFormSuccess(true)
     })
   }
 
@@ -51,7 +72,8 @@ export default function LogIn() {
           </div>
           <button type="submit">Send message</button>
         </form>
-    </div> 
+    </div>
+    <button onClick={resetdb}>RESET DB </button>
     </main>
   )
 }
