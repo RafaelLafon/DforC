@@ -5,7 +5,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 const prisma = new PrismaClient()
 
 async function Reset(){
-  prisma.user.deleteMany({})
+  await prisma.user.deleteMany({})
 }
 
 
