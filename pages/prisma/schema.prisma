@@ -1,0 +1,44 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+model User {
+Tag String @unique
+Name String
+Email String
+Status Int
+Languages String
+Serveurs String
+Amis String
+Password String
+Parameters String
+
+
+}
+
+model Server {
+  Id String @unique
+  Name String
+  Members String
+  Admins String
+  Channel Channel[]
+}
+
+model Channel {
+  Id Int @unique  
+  Name String 
+	Thread String//1 message= [utilisateur,contenu,date,type du message(code, discussion, media)]
+	Pinned String
+	Moderation Boolean
+  Server Server  @relation(fields: [ServerId], references: [Id])
+  ServerId String
+}
