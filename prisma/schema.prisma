@@ -21,6 +21,7 @@ Serveurs String
 Amis String
 Password String
 Parameters String
+IsConfigured Boolean @default(false)
 
 
 }

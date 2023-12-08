@@ -1,9 +1,22 @@
-
-import nextCookie from 'next-cookies'
 import cookie from 'js-cookie'
 import Router from 'next/router'
 
-export const login = ({ tag }) => {
-    cookie.set('tag', tag, { expires:3600,secure:true})
-    Router.push('/')
+type content = {
+  tag:string,
+  configured:boolean
+}
+
+
+export const login = ({ tag ,isConfigured}) => {
+  var cookieContent:content={"tag":tag,"configured":isConfigured}
+  var stringified=JSON.stringify(cookieContent)
+  console.log(stringified)
+
+  cookie.set('connectCookie',stringified,{ expires:3600,secure:true})
+  Router.push('/')
   }
+
+export const logout = () => {
+  cookie.remove("connectCookie")
+  Router.push('/')
+}

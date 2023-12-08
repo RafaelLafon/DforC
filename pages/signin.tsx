@@ -1,3 +1,4 @@
+import Router from 'next/router'
 import React, { useState } from "react"
 
 
@@ -7,9 +8,6 @@ export default function SignIn() {
     password: "",
   });
 
-  const add=()=>{
-
-  }
 
   const [formSuccess, setFormSuccess] = useState(false)
   const [formSuccessMessage, setFormSuccessMessage] = useState("")
@@ -34,34 +32,34 @@ export default function SignIn() {
     }));
     console.log(formData)
   }
-  const submitForm = (e) => {
+  async function submitForm(e){
     // We don't want the page to refresh
     e.preventDefault()
-    fetch("/api/signinHandler", {
+    var response= await fetch("/api/signinHandler", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
         'accept': 'application/json',
       },
-    }).then((response) => response.json())
-    .then((data) => {
-      setFormData({
-        email: "",
-        password: "",  
-      })
-      
-   
-      // Handle response if necessary
-      // ...
-      setFormSuccess(true)
     })
+    setFormData({
+      email: "",
+      password: ""
+  })
+    if (response.status===400){
+      const {message} = await response.json()
+      console.log(message)
+    } else if (response.status===200){
+      Router.push("/login")
+    }
+      
   }
 
   return (
     <main>
     <div>
-      <h1>Contact form</h1>
-        <form id="form" method="POST" action="https://www.formbackend.com/f/664decaabbf1c319" onSubmit={submitForm}>       
+      <h1>Sign in</h1>
+        <form id="form" method="POST" onSubmit={submitForm}>       
           <div>
             <label>Email</label>
             <input id="email" type="text" name="email" onChange={handleInput} value={formData.email} />

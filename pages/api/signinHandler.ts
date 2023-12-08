@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import { randomInt } from 'crypto'
 import bcrypt from 'bcrypt';
+import Router from 'next/router'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Passions_Conflict } from 'next/font/google';
 import {verifEmail,verifyPassword,allowTag} from '../../auth/auth'
@@ -13,16 +14,24 @@ type Data = {
   password: string
 }
 
+type Result ={
+  message: string
+  successful: boolean
+}
+
 const prisma = new PrismaClient()
 
 
 
 export default async function SigninFormHandler( req: NextApiRequest,
-  res: NextApiResponse<Data>){
+  res: NextApiResponse<Result>){
   {
     var form=JSON.parse(req.body)
     if (form.password=="" || form.email==""){
-      res.redirect(200, `/signin`)
+      res.status(400).json({message:"the email or password can't be empty",successful:false})
+    }
+    if (await prisma.user.count({where:{Email:form.email}})>0){
+      res.status(400).json({message:"the email already exist",successful:false})
     }
     /*
     if (!verifEmail(form.email) && !verifyPassword(form.password)){
@@ -44,7 +53,7 @@ export default async function SigninFormHandler( req: NextApiRequest,
       }
     })
     console.log(user)
-    
+    res.status(200).json({message:"User created",successful:true})
   }
 }
 

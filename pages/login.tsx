@@ -37,9 +37,9 @@ export default function LogIn() {
       },
     })
     if (response.status === 200) {
-      const { tag,token } = await response.json()
+      const { tag,token,isConfigured } = await response.json()
       if (token=="true"){
-      await login({ tag })
+      await login({ tag,isConfigured })
       }
   } 
   }
@@ -48,8 +48,8 @@ export default function LogIn() {
   return (
     <main>
     <div>
-      <h1>Contact form</h1>
-        <form id="form" method="POST" action="https://www.formbackend.com/f/664decaabbf1c319" onSubmit={submitForm}>       
+      <h1>Login</h1>
+        <form id="form" method="POST" onSubmit={submitForm}>       
           <div>
             <label>Email</label>
             <input id="email" type="text" name="email" onChange={handleInput} value={formData.email} />
