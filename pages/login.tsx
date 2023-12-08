@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { RedirectType, redirect } from 'next/navigation'
+import {login} from "../auth/cookie"
 
 import { json } from "stream/consumers";
 
@@ -9,6 +10,7 @@ export default function LogIn() {
     email: "",
     password: "",
   });
+  
 
 
   const [formSuccess, setFormSuccess] = useState(false)
@@ -24,17 +26,24 @@ export default function LogIn() {
     }));
     console.log(formData)
   }
-  const submitForm = (e) => {
+    async function submitForm(e) {
     // We don't want the page to refresh
     e.preventDefault()
-    fetch("/api/loginHandler", {
+    const response=await fetch("/api/loginHandler", {
       method: "POST",
       body: JSON.stringify(formData),
       headers: {
-        'accept': 'application/json',
+        'type': 'application/json',
       },
     })
+    if (response.status === 200) {
+      const { tag,token } = await response.json()
+      if (token=="true"){
+      await login({ tag })
+      }
+  } 
   }
+
 
   return (
     <main>

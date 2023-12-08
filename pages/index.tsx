@@ -10,11 +10,12 @@ type ProfilBarProps = {
 }
 
 export default function Home() {
-  const [cookie, setCookie] = useCookies(["user"])
-  if (cookie.user){
+  const [cookie, setCookie] = useCookies(["tag"])
+  console.log(cookie)
+  if (cookie.tag){
     return (
       <main>
-        <ProfilBar  name={cookie.user}></ProfilBar>
+        <ProfilBar  tag={cookie.tag}></ProfilBar>
       </main>
     )
   } else{

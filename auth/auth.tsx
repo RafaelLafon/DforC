@@ -44,5 +44,7 @@ export async function allowTag(name:string){
     if (allTag!=undefined){
     DispoTag.filter(el=> allTag.includes(el))
     }
+    prisma.$disconnect()
     return name+DispoTag[randomInt(DispoTag.length)]
 }
+
