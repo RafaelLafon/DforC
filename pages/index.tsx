@@ -3,6 +3,11 @@ import { Inter } from 'next/font/google'
 import { ProfilBar } from '../components/connected'
 import { useCookies } from "react-cookie"
 import Router from 'next/router'
+import {verifCookie,getUserInfo} from "../auth/auth"
+import { UserInfo } from '@/struct/struct'
+import { redirect } from 'next/navigation'
+import { userInfo } from 'os'
+import { getServerSideProps } from 'next/dist/build/templates/pages'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,31 +20,16 @@ type content = {
   configured: boolean
 }
 
+
+
 export default function Home() {
   const [cookie] = useCookies(["connectCookie"])
-
-  if (cookie.connectCookie == undefined) {
+  console.log("index page log : "+cookie.connectCookie)
     return (
       <div>
         <a href="/signin"> S'inscrire</a>
+        <a href="/login"> Se connecter</a>
       </div>
     )
-  } else {
-    console.log(cookie.connectCookie)
-    var cookieContent = cookie.connectCookie
+} 
 
-    if (!cookieContent.configured) {
-      Router.push("/configuration")
-      return
-    }
-
-    if (cookieContent.tag) {
-      return (
-        <div>
-          <ProfilBar tag={cookieContent.tag}></ProfilBar>
-        </div>
-      )
-    }
-
-  }
-}

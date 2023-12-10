@@ -2,21 +2,23 @@ import cookie from 'js-cookie'
 import Router from 'next/router'
 
 type content = {
-  tag:string,
+  id:number,
+  token:boolean,
   configured:boolean
 }
 
 
-export const login = ({ tag ,isConfigured}) => {
-  var cookieContent:content={"tag":tag,"configured":isConfigured}
+export const login = ({ id ,isConfigured}) => {
+  var cookieContent:content={"id":id,"token":true,"configured":isConfigured}
   var stringified=JSON.stringify(cookieContent)
   console.log(stringified)
 
-  cookie.set('connectCookie',stringified,{ expires:3600,secure:true})
-  Router.push('/')
+  cookie.set('connectCookie',stringified,{ expires:1/24,secure:true})
+  return
   }
 
 export const logout = () => {
   cookie.remove("connectCookie")
-  Router.push('/')
+  Router.replace('/')
+  return
 }

@@ -1,11 +1,25 @@
 import React, { useState } from "react"
 import { RedirectType, redirect } from 'next/navigation'
 import {login} from "../auth/cookie"
-
+import { verifCookie } from "../auth/auth"
+import { useCookies } from "react-cookie"
+import { logout } from "../auth/cookie"
 import { json } from "stream/consumers";
-
+import Router from 'next/router'
+import E400 from "../components/400error"
+import LoginButton from "../components/login-button"
 
 export default function LogIn() {
+  
+  const [cookie] = useCookies(["connectCookie"])
+  if (verifCookie(cookie)) {  //if cookie:it means loged so can't access login page
+    return (
+      <div>
+        <E400/>
+      </div>
+    )
+  }
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -37,9 +51,10 @@ export default function LogIn() {
       },
     })
     if (response.status === 200) {
-      const { tag,token,isConfigured } = await response.json()
+      const { id,token,isConfigured } = await response.json()
       if (token=="true"){
-      await login({ tag,isConfigured })
+      await login({ id,isConfigured })
+      Router.replace("/configuration")
       }
   } 
   }

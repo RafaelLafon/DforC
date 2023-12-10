@@ -13,6 +13,7 @@
     "bcrypt": "^5.1.1",
     "js-cookie": "^3.0.5",
     "next": "14.0.3",
+    "next-auth": "^4.24.5",
     "prisma": "^5.7.0",
     "react": "^18",
     "react-cookie": "^6.1.1",

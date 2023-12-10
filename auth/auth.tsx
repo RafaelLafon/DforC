@@ -1,6 +1,10 @@
-
 import { PrismaClient} from '@prisma/client'
 import { randomInt } from 'crypto'
+import { RedirectType, redirect } from 'next/navigation'
+import Router from 'next/router'
+import { UserInfo } from '@/struct/struct'
+
+
 
 export function verifEmail(email:string){
     if (email.includes("@")){
@@ -46,5 +50,28 @@ export async function allowTag(name:string){
     }
     prisma.$disconnect()
     return name+DispoTag[randomInt(DispoTag.length)]
+}
+
+
+export function verifCookie(cookie) {
+    if (cookie.connectCookie === undefined || cookie.connectCookie.token=="false") {
+        return false
+    }    
+    return true
+}
+
+
+export async function getUserInfo(id =0,tag =""){
+    if (id!=0){
+    var prisma= new PrismaClient()
+    var user=await prisma.user.findFirst({where:{Id:id}})
+    prisma.$disconnect
+    return {"name":user?.Name || "","tag":user?.Tag  || "","image":""}
+    } else if (tag!=""){
+        var prisma= new PrismaClient()
+    var user=await prisma.user.findFirst({where:{Tag:tag}})
+    prisma.$disconnect
+    return {"name":user?.Name || "","tag":user?.Tag  || "","image":""}
+    }
 }
 

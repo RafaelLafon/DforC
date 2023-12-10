@@ -1,15 +1,16 @@
 import { logout } from "@/auth/cookie"
-
-type ProfilBarProps = {
-    tag: string
-  }
+import { UserInfo } from '@/struct/struct'
 
 
-export function ProfilBar(props:ProfilBarProps){
+
+export function ProfilBar(props:UserInfo){
     return (
+        <>
         <div>
-            You are connected {props.tag} !
+            <img src="" alt="" />
+            <h1>You are connected {props.tag} !</h1>
             <button onClick={logout}>Log out</button>
         </div>
+        </>
     )
 }

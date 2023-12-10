@@ -46,7 +46,7 @@ export default async function SigninFormHandler( req: NextApiRequest,
         Name:"admin" ,
         Tag: await allowTag("admin"),
         Status: 1,
-        Languages:"C#",
+        Languages:"",
         Serveurs:"",
         Amis:"",
         Parameters:""

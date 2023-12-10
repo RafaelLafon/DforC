@@ -6,7 +6,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { RedirectType, redirect } from 'next/navigation'
 
 type Data = {
-  tag: string
+  id: number
   token:string
   isConfigured:boolean
 }
@@ -25,17 +25,18 @@ export default async function LoginFormHandler( req: NextApiRequest,
             var user= (await prisma.user.findFirstOrThrow({where:{Email:form.email}}))
             var configured = user.IsConfigured
               prisma.$disconnect()
-              return res.status(200).json({"tag":user.Tag,"token":"true",isConfigured:configured})
+              console.log("oui")
+              res.status(200).json({"id":user.Id,"token":"true",isConfigured:configured})
         } else{
             console.log("non")
             prisma.$disconnect()
-            return res.status(403).json({"tag":"","token":"false",isConfigured:false})
+            res.status(403).json({"id":0,"token":"false",isConfigured:false})
         }
     });
 } catch (PrismaKnownClientError){
     console.log("existe pas")
     prisma.$disconnect()
-    return res.status(403).json({"tag":"","token":"false",isConfigured:false})
+    res.status(403).json({"id":0,"token":"false",isConfigured:false})
 }
 }
 

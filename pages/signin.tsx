@@ -1,13 +1,31 @@
-import Router from 'next/router'
 import React, { useState } from "react"
-
+import { RedirectType, redirect } from 'next/navigation'
+import {login} from "../auth/cookie"
+import { verifCookie } from "../auth/auth"
+import { useCookies } from "react-cookie"
+import { logout } from "../auth/cookie"
+import { json } from "stream/consumers";
+import Router from 'next/router'
+import E400 from "../components/400error"
+import LoginButton from "../components/login-button"
 
 export default function SignIn() {
+  
+  const [cookie] = useCookies(["connectCookie"])
+  if (verifCookie(cookie)) {  //if cookie:it means loged so can't access signin page
+    return (
+      <div>
+        <E400/>
+      </div>
+    )
+  }
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  
 
   const [formSuccess, setFormSuccess] = useState(false)
   const [formSuccessMessage, setFormSuccessMessage] = useState("")

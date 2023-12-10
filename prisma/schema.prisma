@@ -12,6 +12,7 @@ datasource db {
 
 
 model User {
+Id Int  @id @default(1)
 Tag String @unique
 Name String
 Email String
@@ -27,7 +28,7 @@ IsConfigured Boolean @default(false)
 }
 
 model Server {
-  Id String @unique
+  Id String @id
   Name String
   Members String
   Admins String
@@ -35,7 +36,7 @@ model Server {
 }
 
 model Channel {
-  Id Int @unique  
+  Id Int @id 
   Name String 
 	Thread String//1 message= [utilisateur,contenu,date,type du message(code, discussion, media)]
 	Pinned String
