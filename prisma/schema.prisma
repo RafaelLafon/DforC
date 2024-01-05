@@ -12,7 +12,7 @@ datasource db {
 
 
 model User {
-Id Int  @id @default(1)
+Id Int @id @default(autoincrement()) 
 Tag String @unique
 Name String
 Email String
@@ -28,7 +28,7 @@ IsConfigured Boolean @default(false)
 }
 
 model Server {
-  Id String @id
+  Id Int @id @default(autoincrement()) 
   Name String
   Members String
   Admins String
@@ -36,11 +36,11 @@ model Server {
 }
 
 model Channel {
-  Id Int @id 
+  Id Int @id @default(autoincrement()) 
   Name String 
 	Thread String//1 message= [utilisateur,contenu,date,type du message(code, discussion, media)]
 	Pinned String
 	Moderation Boolean
   Server Server  @relation(fields: [ServerId], references: [Id])
-  ServerId String
+  ServerId Int
 }

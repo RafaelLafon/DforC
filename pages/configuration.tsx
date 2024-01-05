@@ -3,7 +3,7 @@ import { verifCookie } from "../auth/auth"
 import E400 from "../components/400error"
 import { useCookies } from "react-cookie"
 import {useRouter} from 'next/router'
-import { json } from "stream/consumers";
+import { json } from "stream/consumers"
 
 
 
@@ -51,7 +51,6 @@ export default function Configuration() {
   }
 
   return (
-    <main>
     <div>
       <h1>Configuration</h1>
         <form id="form" method="POST" onSubmit={submitForm}>       
@@ -66,6 +65,5 @@ export default function Configuration() {
           <button type="submit">Send message</button>
         </form>
     </div> 
-    </main>
   )
 }
