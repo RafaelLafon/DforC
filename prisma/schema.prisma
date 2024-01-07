@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -34,9 +35,9 @@ model Server {
 }
 
 model Channel {
-  Id Int @unique  
+  Id Int @id @default(autoincrement())
   Name String 
-	Thread String//1 message= [utilisateur,contenu,date,type du message(code, discussion, media)]
+	Thread String
 	Pinned String
 	Moderation Boolean
   Server Server  @relation(fields: [ServerId], references: [Id])
